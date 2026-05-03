@@ -1,8 +1,8 @@
 "use client";
 
 import {
-  motion,
   AnimatePresence,
+  motion,
   useMotionValue,
   useSpring,
 } from "framer-motion";
@@ -38,7 +38,7 @@ const socialLinks = [
 export function HomeSection({
   onSectionChange,
 }: {
-  onSectionChange: (section: 'projects' | 'about') => void;
+  onSectionChange: (section: "projects" | "about") => void;
 }) {
   const [titleIndex, setTitleIndex] = useState(0);
   const [imageError, setImageError] = useState(false);
@@ -76,19 +76,23 @@ export function HomeSection({
         flex items-center
           py-8 sm:py-10 md:py-12 lg:py-0
         "
-      >
-        {/* Background */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] bg-[size:22px_22px]" />
-        </div>
+    >
+      {/* Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] bg-[size:22px_22px]" />
+      </div>
 
-        {/* Container */}
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 lg:px-16">
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-4 sm:gap-6 md:gap-8 lg:gap-12">
-                w-full max-w-[280px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[520px]
-                h-[35vh] sm:h-[42vh] md:h-[50vh] lg:h-[72vh]
-              "
+      {/* Container */}
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 lg:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-4 sm:gap-6 md:gap-8 lg:gap-12">
+          {/* IMAGE */}
+          <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
+            <motion.div
+              style={{ x: smoothX, y: smoothY }}
+              className="
+                  w-full max-w-[280px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[520px]
+                  h-[35vh] sm:h-[42vh] md:h-[50vh] lg:h-[72vh]
+                "
             >
               <div className="relative w-full h-full overflow-hidden rounded-3xl lg:rounded-[2.5rem]">
                 {!imageError ? (
@@ -110,14 +114,14 @@ export function HomeSection({
           </div>
 
           {/* TEXT */}
-          <div className="
+          <div
+            className="
             order-2 lg:order-1
             flex flex-col gap-4 sm:gap-5 md:gap-6
-          ">
-
+          "
+          >
             {/* MOBILE 2-COLUMN BLOCK */}
             <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:block">
-
               {/* LEFT COLUMN */}
               <div className="flex flex-col">
                 <div className="leading-[0.85] text-center lg:text-left">
@@ -146,7 +150,6 @@ export function HomeSection({
 
               {/* RIGHT COLUMN */}
               <div className="flex flex-col">
-
                 {/* TITLE */}
                 <div className="h-6 sm:h-7 md:h-9">
                   <AnimatePresence mode="wait">
@@ -168,7 +171,8 @@ export function HomeSection({
                   animate={{ opacity: 1 }}
                   className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed"
                 >
-                  Crafting scalable systems and modern interfaces where design and engineering merge seamlessly.
+                  Crafting scalable systems and modern interfaces where design
+                  and engineering merge seamlessly.
                 </motion.p>
 
                 {/* CTA */}
@@ -201,10 +205,8 @@ export function HomeSection({
                     </a>
                   ))}
                 </div>
-
               </div>
             </div>
-
           </div>
         </div>
       </div>
