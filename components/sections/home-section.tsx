@@ -71,11 +71,11 @@ export function HomeSection({
     <section
       onMouseMove={handleMouseMove}
       className="
-        relative w-full h-screen overflow-hidden
+        relative w-full min-h-screen overflow-hidden
         bg-background text-foreground
         flex items-center justify-center
-        py-8 sm:py-10 md:py-12 lg:py-0
-        pb-20 sm:pb-24 md:pb-0
+        pt-20 sm:pt-24
+        pb-28 sm:pb-32 md:pb-24 lg:pb-24
       "
     >
       {/* Background */}

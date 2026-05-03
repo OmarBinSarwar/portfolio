@@ -138,6 +138,26 @@
   transform-style: preserve-3d;
 }
 
+/* Section Spacing */
+.section-shell {
+  scroll-behavior: smooth;
+}
+
+.section-shell > div {
+  width: 100%;
+}
+
+/* Add spacing between major section elements */
+@layer components {
+  .section-header {
+    @apply mb-8 sm:mb-10 md:mb-12 lg:mb-16;
+  }
+
+  .section-content {
+    @apply space-y-6 sm:space-y-8 md:space-y-10;
+  }
+}
+
 /* Animations */
 @keyframes float-gentle {
   0%,

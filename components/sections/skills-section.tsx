@@ -83,7 +83,7 @@ export function SkillsSection() {
   };
 
   return (
-    <div className="section-shell section-skills h-screen overflow-y-auto overflow-x-hidden flex items-center justify-center px-4 sm:px-6 py-12 sm:py-16 md:py-24 pb-20 sm:pb-24 md:pb-32">
+    <div className="section-shell section-skills min-h-screen w-full flex items-center justify-center px-4 sm:px-6 pt-20 sm:pt-24 md:pt-28 pb-28 sm:pb-32 md:pb-24 lg:pb-24">
       <div className="max-w-6xl mx-auto w-full">
         {/* Section Header */}
         <motion.div

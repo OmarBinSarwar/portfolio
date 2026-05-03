@@ -56,31 +56,66 @@ export default function Home() {
   const isScrollingRef = useRef(false);
   const lastScrollTime = useRef(0);
   const sectionScrollRef = useRef<HTMLDivElement | null>(null);
+  const edgeScrollCount = useRef(0);
+  const lastEdgeDirection = useRef(0);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 650);
     return () => clearTimeout(timer);
   }, []);
 
-  const handleSectionChange = useCallback((newSection: Section) => {
-    setActiveSection(newSection);
-  }, []);
+  const handleSectionChange = useCallback(
+    (newSection: Section) => {
+      const currentIndex = sectionOrder.indexOf(activeSection);
+      const newIndex = sectionOrder.indexOf(newSection);
+      setDirection(newIndex > currentIndex ? 1 : -1);
+      setActiveSection(newSection);
+    },
+    [activeSection],
+  );
+
+  // Reset scroll position when section changes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (sectionScrollRef.current) {
+        sectionScrollRef.current.scrollTop = 0;
+      }
+    }, 50);
+    edgeScrollCount.current = 0;
+    lastEdgeDirection.current = 0;
+    return () => clearTimeout(timer);
+  }, [activeSection]);
 
   const canNavigateSection = useCallback((deltaY: number) => {
     const container = sectionScrollRef.current;
     if (!container) return true;
 
     const { scrollTop, clientHeight, scrollHeight } = container;
-    const threshold = 6;
+    // Content fits in viewport — no internal scroll needed
+    const noScroll = scrollHeight <= clientHeight + 2;
+    if (noScroll) return true;
 
-    if (deltaY > 0) {
-      return scrollTop + clientHeight >= scrollHeight - threshold;
+    const threshold = 10;
+    const isAtBottom = scrollTop + clientHeight >= scrollHeight - threshold;
+    const isAtTop = scrollTop <= threshold;
+
+    const dir = deltaY > 0 ? 1 : -1;
+    const atEdge = dir > 0 ? isAtBottom : isAtTop;
+
+    if (atEdge) {
+      // Require 2 consecutive edge scrolls in the same direction
+      if (lastEdgeDirection.current === dir) {
+        edgeScrollCount.current += 1;
+      } else {
+        edgeScrollCount.current = 1;
+        lastEdgeDirection.current = dir;
+      }
+      return edgeScrollCount.current >= 2;
     }
 
-    if (deltaY < 0) {
-      return scrollTop <= threshold;
-    }
-
+    // Not at edge — reset counter
+    edgeScrollCount.current = 0;
+    lastEdgeDirection.current = 0;
     return false;
   }, []);
 
@@ -88,40 +123,42 @@ export default function Home() {
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       const now = Date.now();
-      // Throttle scroll events - minimum 600ms between section changes
-      if (now - lastScrollTime.current < 600) return;
+      // Throttle scroll events - minimum 700ms between section changes
+      if (now - lastScrollTime.current < 700) return;
       if (isScrollingRef.current) return;
       if (!canNavigateSection(e.deltaY)) return;
 
       const currentIndex = sectionOrder.indexOf(activeSection);
 
       // Check if scrolling down
-      if (e.deltaY > 30) {
+      if (e.deltaY > 20) {
         const nextIndex = Math.min(currentIndex + 1, sectionOrder.length - 1);
         if (nextIndex !== currentIndex) {
+          e.preventDefault();
           isScrollingRef.current = true;
           lastScrollTime.current = now;
           handleSectionChange(sectionOrder[nextIndex]);
           setTimeout(() => {
             isScrollingRef.current = false;
-          }, 600);
+          }, 700);
         }
       }
       // Check if scrolling up
-      else if (e.deltaY < -30) {
+      else if (e.deltaY < -20) {
         const prevIndex = Math.max(currentIndex - 1, 0);
         if (prevIndex !== currentIndex) {
+          e.preventDefault();
           isScrollingRef.current = true;
           lastScrollTime.current = now;
           handleSectionChange(sectionOrder[prevIndex]);
           setTimeout(() => {
             isScrollingRef.current = false;
-          }, 600);
+          }, 700);
         }
       }
     };
 
-    window.addEventListener("wheel", handleWheel, { passive: true });
+    window.addEventListener("wheel", handleWheel, { passive: false });
     return () => window.removeEventListener("wheel", handleWheel);
   }, [activeSection, canNavigateSection, handleSectionChange]);
 
@@ -284,7 +321,7 @@ export default function Home() {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="h-full w-full preserve-3d overflow-hidden"
+            className="h-full w-full preserve-3d overflow-y-auto overflow-x-hidden"
             ref={sectionScrollRef}
           >
             {activeSection === "home" && (
