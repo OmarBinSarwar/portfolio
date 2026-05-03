@@ -1,19 +1,19 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
-  User,
   Code2,
   FolderKanban,
-  Mail,
-  Home,
-  Sun,
-  Moon,
   Github,
+  Home,
   Linkedin,
+  Mail,
+  Moon,
+  Sun,
+  User,
 } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 type Section = "home" | "about" | "skills" | "projects" | "contact";
 
@@ -50,7 +50,10 @@ const sections = [
   },
 ];
 
-export function CommandHub({ activeSection, onSectionChange }: CommandHubProps) {
+export function CommandHub({
+  activeSection,
+  onSectionChange,
+}: CommandHubProps) {
   const { setTheme, resolvedTheme } = useTheme();
   const [hoveredSection, setHoveredSection] = useState<Section | null>(null);
   const [mounted, setMounted] = useState(false);
@@ -84,20 +87,20 @@ export function CommandHub({ activeSection, onSectionChange }: CommandHubProps) 
                 onClick={() => onSectionChange(section.id)}
                 onMouseEnter={() => setHoveredSection(section.id)}
                 onMouseLeave={() => setHoveredSection(null)}
-                className={`relative p-3 rounded-xl transition-colors ${
+                className={`relative p-2 sm:p-3 rounded-lg sm:rounded-xl transition-colors ${
                   isActive
                     ? "bg-primary text-primary-foreground"
                     : "hover:bg-muted text-muted-foreground hover:text-foreground"
                 }`}
-                whileHover={{ scale: 1.1, y: -4 }}
+                whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 + index * 0.1 }}
                 aria-label={section.label}
               >
-                <Icon className="w-5 h-5" />
-                
+                <Icon className="w-4 sm:w-5 h-4 sm:h-5" />
+
                 {/* Tooltip */}
                 <AnimatePresence>
                   {isHovered && (
@@ -136,11 +139,12 @@ export function CommandHub({ activeSection, onSectionChange }: CommandHubProps) 
             whileTap={{ scale: 0.95 }}
             aria-label="Toggle theme"
           >
-            {mounted && (resolvedTheme === "dark" ? (
-              <Sun className="w-5 h-5" />
-            ) : (
-              <Moon className="w-5 h-5" />
-            ))}
+            {mounted &&
+              (resolvedTheme === "dark" ? (
+                <Sun className="w-5 h-5" />
+              ) : (
+                <Moon className="w-5 h-5" />
+              ))}
           </motion.button>
         </div>
       </motion.nav>
@@ -208,7 +212,9 @@ export function CommandHub({ activeSection, onSectionChange }: CommandHubProps) 
               <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
                 Omar Bin Sarwar
               </div>
-              <div className="text-xs text-muted-foreground">Software Developer</div>
+              <div className="text-xs text-muted-foreground">
+                Software Developer
+              </div>
             </div>
           </motion.button>
 

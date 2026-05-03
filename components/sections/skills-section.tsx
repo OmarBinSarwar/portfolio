@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
 const categories = [
@@ -42,7 +42,7 @@ export function SkillsSection() {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
   const filteredSkills = skills.filter(
-    (skill) => activeCategory === "all" || skill.category === activeCategory
+    (skill) => activeCategory === "all" || skill.category === activeCategory,
   );
 
   const getSkillVisuals = (level: number) => {
@@ -69,7 +69,8 @@ export function SkillsSection() {
         ring: "text-primary/75",
         glow: "from-primary/12 via-accent/5 to-transparent",
         badge: "Proficient",
-        badgeClass: "bg-secondary text-secondary-foreground border border-border",
+        badgeClass:
+          "bg-secondary text-secondary-foreground border border-border",
       };
     }
 
@@ -82,26 +83,26 @@ export function SkillsSection() {
   };
 
   return (
-    <div className="section-shell section-skills min-h-screen flex items-center justify-center px-6 py-24">
+    <div className="section-shell section-skills min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-16 md:py-24">
       <div className="max-w-6xl mx-auto w-full">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12 md:mb-16"
         >
           <motion.span
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="inline-block px-4 py-1.5 rounded-full glass text-sm text-primary mb-4"
+            className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full glass text-xs sm:text-sm text-primary mb-3 sm:mb-4"
           >
             Skills & Expertise
           </motion.span>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             <span className="text-foreground">My </span>
             <span className="gradient-text">Tech Stack</span>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
+          <p className="text-xs sm:text-sm text-muted-foreground max-w-xl mx-auto px-2">
             Technologies I work with to bring ideas to life
           </p>
         </motion.div>
@@ -111,13 +112,13 @@ export function SkillsSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="flex justify-center gap-2 mb-12 flex-wrap"
+          className="flex justify-center gap-1.5 sm:gap-2 mb-8 sm:mb-10 md:mb-12 flex-wrap px-2"
         >
           {categories.map((category) => (
             <motion.button
               key={category.id}
               onClick={() => setActiveCategory(category.id)}
-              className={`px-6 py-2.5 rounded-xl font-medium transition-all ${
+              className={`px-3 sm:px-6 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all ${
                 activeCategory === category.id
                   ? "bg-primary text-primary-foreground"
                   : "glass palette-surface-a text-muted-foreground hover:text-foreground"
@@ -133,101 +134,115 @@ export function SkillsSection() {
         {/* Skills Grid */}
         <motion.div
           layout
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 md:gap-4"
         >
           <AnimatePresence mode="popLayout">
             {filteredSkills.map((skill, index) => {
               const visuals = getSkillVisuals(skill.level);
 
               return (
-              <motion.div
-                key={skill.name}
-                layout
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ delay: index * 0.03 }}
-                onMouseEnter={() => setHoveredSkill(skill.name)}
-                onMouseLeave={() => setHoveredSkill(null)}
-                className="relative group"
-              >
                 <motion.div
-                  className="glass palette-surface-b rounded-2xl p-5 text-center cursor-pointer relative overflow-hidden border border-border/70"
-                  whileHover={{ y: -6, scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  key={skill.name}
+                  layout
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ delay: index * 0.03 }}
+                  onMouseEnter={() => setHoveredSkill(skill.name)}
+                  onMouseLeave={() => setHoveredSkill(null)}
+                  className="relative group"
                 >
-                  <div className={`absolute inset-x-0 top-0 h-20 bg-gradient-to-b ${visuals.glow}`} />
+                  <motion.div
+                    className="glass palette-surface-b rounded-lg sm:rounded-2xl p-3 sm:p-5 text-center cursor-pointer relative overflow-hidden border border-border/70"
+                    whileHover={{ y: -3, scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <div
+                      className={`absolute inset-x-0 top-0 h-12 sm:h-20 bg-gradient-to-b ${visuals.glow}`}
+                    />
 
-                  <div className="absolute top-3 right-3">
-                    <span className={`text-[10px] font-semibold px-2 py-1 rounded-full ${visuals.badgeClass} palette-chip-a`}>
-                      {visuals.badge}
+                    <div className="absolute top-1.5 sm:top-3 right-1.5 sm:right-3">
+                      <span
+                        className={`text-[8px] sm:text-[10px] font-semibold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full ${visuals.badgeClass} palette-chip-a`}
+                      >
+                        {visuals.badge}
+                      </span>
+                    </div>
+
+                    {/* Circular progress */}
+                    <div className="relative w-12 sm:w-16 h-12 sm:h-16 mx-auto mb-2 sm:mb-3">
+                      <svg className="w-full h-full -rotate-90">
+                        <circle
+                          cx="24"
+                          cy="24"
+                          r="20"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          className="text-muted/30"
+                        />
+                        <motion.circle
+                          cx="24"
+                          cy="24"
+                          r="20"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          className={visuals.ring}
+                          initial={{ strokeDasharray: "0 126" }}
+                          animate={{
+                            strokeDasharray: `${(skill.level / 100) * 126} 126`,
+                          }}
+                          transition={{
+                            duration: 1,
+                            ease: "easeOut",
+                            delay: index * 0.05,
+                          }}
+                        />
+                      </svg>
+                      <motion.div
+                        className="absolute inset-0 flex items-center justify-center font-bold text-xs sm:text-sm"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                      >
+                        {skill.level}%
+                      </motion.div>
+                    </div>
+
+                    <h3 className="font-semibold text-sm text-foreground">
+                      {skill.name}
+                    </h3>
+
+                    {/* Category badge */}
+                    <span className="text-xs text-muted-foreground/90 capitalize mt-1 block palette-chip-b w-fit mx-auto px-2 py-0.5 rounded-full">
+                      {skill.category === "tools" ? "Tool" : skill.category}
                     </span>
-                  </div>
 
-                  {/* Circular progress */}
-                  <div className="relative w-16 h-16 mx-auto mb-3">
-                    <svg className="w-full h-full -rotate-90">
-                      <circle
-                        cx="32"
-                        cy="32"
-                        r="28"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        className="text-muted/30"
-                      />
-                      <motion.circle
-                        cx="32"
-                        cy="32"
-                        r="28"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                        className={visuals.ring}
-                        initial={{ strokeDasharray: "0 176" }}
-                        animate={{
-                          strokeDasharray: `${(skill.level / 100) * 176} 176`,
+                    <div className="mt-3 h-1.5 w-full rounded-full bg-muted/60 overflow-hidden">
+                      <motion.div
+                        className={`h-full rounded-full ${visuals.ring.replace("text-", "bg-")}`}
+                        initial={{ width: 0 }}
+                        animate={{ width: `${skill.level}%` }}
+                        transition={{
+                          duration: 0.9,
+                          ease: "easeOut",
+                          delay: 0.1 + index * 0.03,
                         }}
-                        transition={{ duration: 1, ease: "easeOut", delay: index * 0.05 }}
                       />
-                    </svg>
-                    <motion.div
-                      className="absolute inset-0 flex items-center justify-center font-bold text-sm"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                    >
-                      {skill.level}%
-                    </motion.div>
-                  </div>
+                    </div>
 
-                  <h3 className="font-semibold text-sm text-foreground">{skill.name}</h3>
-                  
-                  {/* Category badge */}
-                  <span className="text-xs text-muted-foreground/90 capitalize mt-1 block palette-chip-b w-fit mx-auto px-2 py-0.5 rounded-full">
-                    {skill.category === "tools" ? "Tool" : skill.category}
-                  </span>
-
-                  <div className="mt-3 h-1.5 w-full rounded-full bg-muted/60 overflow-hidden">
-                    <motion.div
-                      className={`h-full rounded-full ${visuals.ring.replace("text-", "bg-")}`}
-                      initial={{ width: 0 }}
-                      animate={{ width: `${skill.level}%` }}
-                      transition={{ duration: 0.9, ease: "easeOut", delay: 0.1 + index * 0.03 }}
-                    />
-                  </div>
-
-                  {/* Hover glow effect */}
-                  {hoveredSkill === skill.name && (
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                    />
-                  )}
+                    {/* Hover glow effect */}
+                    {hoveredSkill === skill.name && (
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      />
+                    )}
+                  </motion.div>
                 </motion.div>
-              </motion.div>
               );
             })}
           </AnimatePresence>

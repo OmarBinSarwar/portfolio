@@ -74,26 +74,20 @@ export function HomeSection({
         relative w-full min-h-screen overflow-hidden
         bg-background text-foreground
         flex items-center
-        py-10 sm:py-12 lg:py-0
-      "
-    >
-      {/* Background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] bg-[size:22px_22px]" />
-      </div>
+          py-8 sm:py-10 md:py-12 lg:py-0
+        "
+      >
+        {/* Background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] bg-[size:22px_22px]" />
+        </div>
 
-      {/* Container */}
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16">
+        {/* Container */}
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 lg:px-16">
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-6 lg:gap-12">
-
-          {/* IMAGE */}
-          <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-            <motion.div
-              style={{ x: smoothX, y: smoothY }}
-              className="
-                w-full max-w-[360px] sm:max-w-[420px] lg:max-w-[520px]
-                h-[42vh] sm:h-[50vh] lg:h-[72vh]
+          <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-4 sm:gap-6 md:gap-8 lg:gap-12">
+                w-full max-w-[280px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[520px]
+                h-[35vh] sm:h-[42vh] md:h-[50vh] lg:h-[72vh]
               "
             >
               <div className="relative w-full h-full overflow-hidden rounded-3xl lg:rounded-[2.5rem]">
@@ -118,31 +112,31 @@ export function HomeSection({
           {/* TEXT */}
           <div className="
             order-2 lg:order-1
-            flex flex-col gap-6
+            flex flex-col gap-4 sm:gap-5 md:gap-6
           ">
 
             {/* MOBILE 2-COLUMN BLOCK */}
-            <div className="grid grid-cols-2 gap-4 lg:block">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:block">
 
               {/* LEFT COLUMN */}
               <div className="flex flex-col">
                 <div className="leading-[0.85] text-center lg:text-left">
-                  <h1 className="uppercase font-semibold tracking-[-0.06em] text-[clamp(3rem,9vw,8rem)]">
+                  <h1 className="uppercase font-semibold tracking-[-0.06em] text-[clamp(2rem,7vw,8rem)]">
                     Omar
                   </h1>
-                  <h1 className="uppercase font-semibold tracking-[-0.06em] text-muted-foreground text-[clamp(3rem,9vw,8rem)]">
+                  <h1 className="uppercase font-semibold tracking-[-0.06em] text-muted-foreground text-[clamp(2rem,7vw,8rem)]">
                     Bin
                   </h1>
-                  <h1 className="uppercase font-semibold tracking-[-0.06em] text-[clamp(3rem,9vw,8rem)]">
+                  <h1 className="uppercase font-semibold tracking-[-0.06em] text-[clamp(2rem,7vw,8rem)]">
                     Sarwar
                   </h1>
                 </div>
 
-                <div className="flex gap-2 mt-2 flex-wrap justify-center lg:justify-start">
+                <div className="flex gap-1.5 sm:gap-2 mt-2 flex-wrap justify-center lg:justify-start">
                   {identityLines.map((t) => (
                     <span
                       key={t}
-                      className="text-[10px] sm:text-xs tracking-[0.35em] uppercase text-muted-foreground"
+                      className="text-[8px] sm:text-[10px] md:text-xs tracking-[0.35em] uppercase text-muted-foreground"
                     >
                       {t}
                     </span>
@@ -154,14 +148,14 @@ export function HomeSection({
               <div className="flex flex-col">
 
                 {/* TITLE */}
-                <div className="h-7 sm:h-9">
+                <div className="h-6 sm:h-7 md:h-9">
                   <AnimatePresence mode="wait">
                     <motion.p
                       key={rotatingTitles[titleIndex]}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className="text-sm sm:text-lg font-light"
+                      className="text-xs sm:text-sm md:text-lg font-light"
                     >
                       {rotatingTitles[titleIndex]}
                     </motion.p>
@@ -172,31 +166,31 @@ export function HomeSection({
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="mt-2 text-sm text-muted-foreground leading-relaxed"
+                  className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed"
                 >
                   Crafting scalable systems and modern interfaces where design and engineering merge seamlessly.
                 </motion.p>
 
                 {/* CTA */}
-                <div className="mt-4 flex gap-5">
+                <div className="mt-3 sm:mt-4 flex gap-3 sm:gap-5 flex-wrap">
                   <button
                     onClick={() => onSectionChange("projects")}
-                    className="group inline-flex items-center gap-2 uppercase tracking-[0.25em] text-xs"
+                    className="group inline-flex items-center gap-1.5 uppercase tracking-[0.25em] text-[10px] sm:text-xs hover:opacity-70 transition"
                   >
                     Enter Work
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
+                    <ArrowRight className="w-3 sm:w-4 h-3 sm:h-4 group-hover:translate-x-1 transition" />
                   </button>
 
                   <button
                     onClick={() => onSectionChange("about")}
-                    className="uppercase tracking-[0.25em] text-xs text-muted-foreground"
+                    className="uppercase tracking-[0.25em] text-[10px] sm:text-xs text-muted-foreground hover:text-foreground transition"
                   >
                     Manifesto
                   </button>
                 </div>
 
                 {/* SOCIAL */}
-                <div className="flex gap-4 mt-4">
+                <div className="flex gap-2.5 sm:gap-4 mt-3 sm:mt-4">
                   {socialLinks.map((s) => (
                     <a
                       key={s.label}

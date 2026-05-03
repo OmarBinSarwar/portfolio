@@ -1,7 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GraduationCap, MapPin, Calendar, Heart, Camera, Video } from "lucide-react";
+import {
+  Calendar,
+  Camera,
+  GraduationCap,
+  Heart,
+  MapPin,
+  Video,
+} from "lucide-react";
 import { useState } from "react";
 
 const interests = [
@@ -14,21 +21,24 @@ const timeline = [
     year: "2020 - 2025",
     title: "BSc in Computer Science & Engineering",
     institution: "Independent University, Bangladesh",
-    description: "Pursuing Bachelor's degree with focus on software development and modern web technologies",
+    description:
+      "Pursuing Bachelor's degree with focus on software development and modern web technologies",
     current: true,
   },
   {
     year: "2024",
     title: "Frontend Development Focus",
     institution: "Self Learning & Projects",
-    description: "Building real-world projects with React, Next.js, and modern CSS frameworks",
+    description:
+      "Building real-world projects with React, Next.js, and modern CSS frameworks",
     current: false,
   },
   {
     year: "2023",
     title: "Started Web Development Journey",
     institution: "Online Learning",
-    description: "Began learning HTML, CSS, JavaScript and modern frontend frameworks",
+    description:
+      "Began learning HTML, CSS, JavaScript and modern frontend frameworks",
     current: false,
   },
 ];
@@ -37,13 +47,13 @@ export function AboutSection() {
   const [flippedCard, setFlippedCard] = useState(false);
 
   return (
-    <div className="section-shell section-about min-h-screen flex items-center justify-center px-6 py-24">
+    <div className="section-shell section-about min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-16 md:py-24">
       <div className="max-w-6xl mx-auto w-full">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12 md:mb-16"
         >
           <motion.span
             initial={{ opacity: 0, scale: 0.8 }}
@@ -52,25 +62,25 @@ export function AboutSection() {
           >
             About Me
           </motion.span>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             <span className="text-foreground">The Story </span>
             <span className="gradient-text">Behind the Code</span>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
+          <p className="text-xs sm:text-sm text-muted-foreground max-w-xl mx-auto px-2">
             Get to know the person behind the projects
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-start">
           {/* Interactive 3D Card */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="perspective-1000"
+            className="perspective-1000 order-2 lg:order-1"
           >
             <motion.div
-              className="relative w-full aspect-square max-w-md mx-auto cursor-pointer preserve-3d"
+              className="relative w-full aspect-square max-w-sm sm:max-w-md mx-auto cursor-pointer preserve-3d"
               animate={{ rotateY: flippedCard ? 180 : 0 }}
               transition={{ duration: 0.6 }}
               onClick={() => setFlippedCard(!flippedCard)}
@@ -78,79 +88,95 @@ export function AboutSection() {
             >
               {/* Front of card */}
               <div
-                className="absolute inset-0 rounded-3xl glass palette-surface-a p-8 flex flex-col justify-between"
+                className="absolute inset-0 rounded-2xl sm:rounded-3xl glass palette-surface-a p-4 sm:p-6 md:p-8 flex flex-col justify-between text-sm sm:text-base"
                 style={{ backfaceVisibility: "hidden" }}
               >
                 <div>
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-4xl font-bold text-primary-foreground">
+                  <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    <div className="w-16 sm:w-20 h-16 sm:h-20 rounded-xl sm:rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-2xl sm:text-4xl font-bold text-primary-foreground flex-shrink-0">
                       OB
                     </div>
-                    <div>
-                      <h3 className="text-2xl font-bold">Omar Bin Sarwar</h3>
-                      <p className="text-muted-foreground">Software Developer</p>
+                    <div className="min-w-0">
+                      <h3 className="text-lg sm:text-2xl font-bold">
+                        Omar Bin Sarwar
+                      </h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground">
+                        Software Developer
+                      </p>
                     </div>
                   </div>
 
-                  <div className="space-y-3 mb-6">
-                    <div className="flex items-center gap-3 text-muted-foreground">
-                      <MapPin className="w-4 h-4 text-primary" />
+                  <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 text-xs sm:text-sm">
+                    <div className="flex items-center gap-2 sm:gap-3 text-muted-foreground">
+                      <MapPin className="w-3 sm:w-4 h-3 sm:h-4 text-primary flex-shrink-0" />
                       <span>Dhaka, Bangladesh</span>
                     </div>
-                    <div className="flex items-center gap-3 text-muted-foreground">
-                      <GraduationCap className="w-4 h-4 text-primary" />
+                    <div className="flex items-center gap-2 sm:gap-3 text-muted-foreground">
+                      <GraduationCap className="w-3 sm:w-4 h-3 sm:h-4 text-primary flex-shrink-0" />
                       <span>BSc in CSE - Independent University</span>
                     </div>
-                    <div className="flex items-center gap-3 text-muted-foreground">
-                      <Calendar className="w-4 h-4 text-primary" />
+                    <div className="flex items-center gap-2 sm:gap-3 text-muted-foreground">
+                      <Calendar className="w-3 sm:w-4 h-3 sm:h-4 text-primary flex-shrink-0" />
                       <span>2020 - 2025</span>
                     </div>
                   </div>
 
-                  <p className="text-muted-foreground leading-relaxed">
-                    A passionate developer who loves turning complex problems into elegant solutions.
-                    I specialize in building modern, responsive web applications using React, Next.js, 
-                    and cutting-edge frontend technologies.
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                    A passionate developer who loves turning complex problems
+                    into elegant solutions. I specialize in building modern,
+                    responsive web applications using React, Next.js, and
+                    cutting-edge frontend technologies.
                   </p>
                 </div>
 
-                <div className="text-center text-sm text-muted-foreground/60 mt-4">
+                <div className="text-center text-xs sm:text-sm text-muted-foreground/60 mt-3 sm:mt-4">
                   Click to see my interests
                 </div>
               </div>
 
               {/* Back of card */}
               <div
-                className="absolute inset-0 rounded-3xl glass palette-surface-b p-8 flex flex-col justify-center"
-                style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
+                className="absolute inset-0 rounded-2xl sm:rounded-3xl glass palette-surface-b p-4 sm:p-6 md:p-8 flex flex-col justify-center text-xs sm:text-sm"
+                style={{
+                  backfaceVisibility: "hidden",
+                  transform: "rotateY(180deg)",
+                }}
               >
-                <div className="text-center mb-8">
-                  <Heart className="w-8 h-8 text-primary mx-auto mb-4" />
-                  <h3 className="text-xl font-bold mb-2">My Hobbies</h3>
-                  <p className="text-muted-foreground text-sm">What I love doing outside of coding</p>
+                <div className="text-center mb-4 sm:mb-6 md:mb-8">
+                  <Heart className="w-6 sm:w-8 h-6 sm:h-8 text-primary mx-auto mb-2 sm:mb-4" />
+                  <h3 className="text-lg sm:text-xl font-bold mb-1 sm:mb-2">
+                    My Hobbies
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
+                    What I love doing outside of coding
+                  </p>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-2 sm:space-y-3 md:space-y-4">
                   {interests.map((interest, index) => (
                     <motion.div
                       key={interest.label}
-                      className="flex items-center gap-4 p-4 rounded-2xl palette-surface-c transition-colors"
+                      className="flex items-center gap-2 sm:gap-3 md:gap-4 p-2.5 sm:p-3 md:p-4 rounded-lg sm:rounded-2xl palette-surface-c transition-colors"
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 * index }}
                     >
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                        <interest.icon className="w-6 h-6 text-primary-foreground" />
+                      <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0">
+                        <interest.icon className="w-5 sm:w-6 h-5 sm:h-6 text-primary-foreground" />
                       </div>
-                      <div>
-                        <h4 className="font-semibold">{interest.label}</h4>
-                        <p className="text-sm text-muted-foreground">{interest.description}</p>
+                      <div className="min-w-0">
+                        <h4 className="font-semibold text-xs sm:text-sm">
+                          {interest.label}
+                        </h4>
+                        <p className="text-[10px] sm:text-xs text-muted-foreground">
+                          {interest.description}
+                        </p>
                       </div>
                     </motion.div>
                   ))}
                 </div>
 
-                <div className="text-center text-sm text-muted-foreground/60 mt-8">
+                <div className="text-center text-xs sm:text-sm text-muted-foreground/60 mt-4 sm:mt-6 md:mt-8">
                   Click to flip back
                 </div>
               </div>
@@ -162,13 +188,15 @@ export function AboutSection() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
-            className="space-y-6"
+            className="space-y-4 sm:space-y-6 order-1 lg:order-2"
           >
-            <h3 className="text-2xl font-bold mb-8">My Journey</h3>
+            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-8">
+              My Journey
+            </h3>
 
             <div className="relative">
               {/* Timeline line */}
-              <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-transparent" />
+              <div className="absolute left-3 sm:left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-transparent" />
 
               {timeline.map((item, index) => (
                 <motion.div
@@ -176,11 +204,11 @@ export function AboutSection() {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 + index * 0.1 }}
-                  className="relative pl-12 pb-8 last:pb-0"
+                  className="relative pl-8 sm:pl-12 pb-6 sm:pb-8 last:pb-0"
                 >
                   {/* Timeline dot */}
                   <motion.div
-                    className={`absolute left-0 w-8 h-8 rounded-full flex items-center justify-center ${
+                    className={`absolute left-0.5 sm:left-1 w-6 sm:w-8 h-6 sm:h-8 rounded-full flex items-center justify-center -translate-x-1/2 ${
                       item.current
                         ? "bg-primary"
                         : "bg-muted border-2 border-border"
@@ -194,7 +222,9 @@ export function AboutSection() {
                         transition={{ duration: 2, repeat: Infinity }}
                       />
                     )}
-                    <span className={`text-xs font-bold ${item.current ? "text-primary-foreground" : "text-muted-foreground"}`}>
+                    <span
+                      className={`text-[10px] sm:text-xs font-bold ${item.current ? "text-primary-foreground" : "text-muted-foreground"}`}
+                    >
                       {item.year.slice(0, 2)}
                     </span>
                   </motion.div>
@@ -204,7 +234,9 @@ export function AboutSection() {
                     whileHover={{ x: 4 }}
                   >
                     <div className="flex items-center gap-3 mb-2 flex-wrap">
-                      <span className="text-sm text-primary font-mono">{item.year}</span>
+                      <span className="text-sm text-primary font-mono">
+                        {item.year}
+                      </span>
                       {item.current && (
                         <span className="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-xs">
                           Current
@@ -212,8 +244,12 @@ export function AboutSection() {
                       )}
                     </div>
                     <h4 className="text-lg font-semibold mb-1">{item.title}</h4>
-                    <p className="text-sm text-accent mb-2">{item.institution}</p>
-                    <p className="text-muted-foreground text-sm">{item.description}</p>
+                    <p className="text-sm text-accent mb-2">
+                      {item.institution}
+                    </p>
+                    <p className="text-muted-foreground text-sm">
+                      {item.description}
+                    </p>
                   </motion.div>
                 </motion.div>
               ))}
@@ -233,11 +269,15 @@ export function AboutSection() {
               ].map((stat) => (
                 <motion.div
                   key={stat.label}
-                className="text-center p-4 rounded-2xl glass palette-surface-c"
+                  className="text-center p-4 rounded-2xl glass palette-surface-c"
                   whileHover={{ y: -4, scale: 1.02 }}
                 >
-                  <div className="text-2xl font-bold gradient-text">{stat.value}</div>
-                  <div className="text-xs text-muted-foreground">{stat.label}</div>
+                  <div className="text-2xl font-bold gradient-text">
+                    {stat.value}
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    {stat.label}
+                  </div>
                 </motion.div>
               ))}
             </motion.div>
