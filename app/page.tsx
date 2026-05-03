@@ -1,21 +1,21 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { CommandHub } from "@/components/command-hub";
-import { HomeSection } from "@/components/sections/home-section";
 import { AboutSection } from "@/components/sections/about-section";
-import { SkillsSection } from "@/components/sections/skills-section";
-import { ProjectsSection } from "@/components/sections/projects-section";
 import { ContactSection } from "@/components/sections/contact-section";
+import { HomeSection } from "@/components/sections/home-section";
+import { ProjectsSection } from "@/components/sections/projects-section";
+import { SkillsSection } from "@/components/sections/skills-section";
+import { AnimatePresence, motion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type Section = "home" | "about" | "skills" | "projects" | "contact";
 
 const sectionVariants = {
   initial: (direction: number) => ({
     opacity: 0,
-    y: direction > 0 ? 60 : -60,
-    scale: 0.98,
+    y: direction > 0 ? 40 : -40,
+    scale: 0.99,
   }),
   animate: {
     opacity: 1,
@@ -23,25 +23,31 @@ const sectionVariants = {
     scale: 1,
     transition: {
       type: "spring",
-      stiffness: 100,
-      damping: 20,
-      duration: 0.5,
+      stiffness: 120,
+      damping: 25,
+      duration: 0.35,
     },
   },
   exit: (direction: number) => ({
     opacity: 0,
-    y: direction > 0 ? -60 : 60,
-    scale: 0.98,
+    y: direction > 0 ? -40 : 40,
+    scale: 0.99,
     transition: {
       type: "spring",
-      stiffness: 100,
-      damping: 20,
-      duration: 0.3,
+      stiffness: 120,
+      damping: 25,
+      duration: 0.25,
     },
   }),
 };
 
-const sectionOrder: Section[] = ["home", "about", "skills", "projects", "contact"];
+const sectionOrder: Section[] = [
+  "home",
+  "about",
+  "skills",
+  "projects",
+  "contact",
+];
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<Section>("home");
@@ -82,13 +88,13 @@ export default function Home() {
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       const now = Date.now();
-      // Throttle scroll events - minimum 800ms between section changes
-      if (now - lastScrollTime.current < 800) return;
+      // Throttle scroll events - minimum 600ms between section changes
+      if (now - lastScrollTime.current < 600) return;
       if (isScrollingRef.current) return;
       if (!canNavigateSection(e.deltaY)) return;
 
       const currentIndex = sectionOrder.indexOf(activeSection);
-      
+
       // Check if scrolling down
       if (e.deltaY > 30) {
         const nextIndex = Math.min(currentIndex + 1, sectionOrder.length - 1);
@@ -96,7 +102,9 @@ export default function Home() {
           isScrollingRef.current = true;
           lastScrollTime.current = now;
           handleSectionChange(sectionOrder[nextIndex]);
-          setTimeout(() => { isScrollingRef.current = false; }, 800);
+          setTimeout(() => {
+            isScrollingRef.current = false;
+          }, 600);
         }
       }
       // Check if scrolling up
@@ -106,7 +114,9 @@ export default function Home() {
           isScrollingRef.current = true;
           lastScrollTime.current = now;
           handleSectionChange(sectionOrder[prevIndex]);
-          setTimeout(() => { isScrollingRef.current = false; }, 800);
+          setTimeout(() => {
+            isScrollingRef.current = false;
+          }, 600);
         }
       }
     };
@@ -170,7 +180,7 @@ export default function Home() {
       }
 
       const currentIndex = sectionOrder.indexOf(activeSection);
-      
+
       if (e.key === "ArrowRight" || e.key === "ArrowDown") {
         e.preventDefault();
         const nextIndex = Math.min(currentIndex + 1, sectionOrder.length - 1);
@@ -219,7 +229,9 @@ export default function Home() {
                   animate={{ scale: [1, 1.1, 1] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 >
-                  <span className="text-xl font-bold text-primary-foreground">O</span>
+                  <span className="text-xl font-bold text-primary-foreground">
+                    O
+                  </span>
                 </motion.div>
               </motion.div>
 
@@ -257,10 +269,13 @@ export default function Home() {
       </div>
 
       {/* Command Hub (Navigation) */}
-      <CommandHub activeSection={activeSection} onSectionChange={handleSectionChange} />
+      <CommandHub
+        activeSection={activeSection}
+        onSectionChange={handleSectionChange}
+      />
 
       {/* Main Content with Transitions */}
-      <main className="relative z-10 perspective-2000">
+      <main className="relative z-10 perspective-2000 h-screen w-screen overflow-hidden">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={activeSection}
@@ -269,12 +284,16 @@ export default function Home() {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="h-screen preserve-3d overflow-y-auto overflow-x-hidden overscroll-contain"
+            className="h-full w-full preserve-3d overflow-hidden"
             ref={sectionScrollRef}
           >
             {activeSection === "home" && (
-              <HomeSection onSectionChange={handleSectionChange as (section: 'projects' | 'about') => void} />
-              )}
+              <HomeSection
+                onSectionChange={
+                  handleSectionChange as (section: "projects" | "about") => void
+                }
+              />
+            )}
             {activeSection === "about" && <AboutSection />}
             {activeSection === "skills" && <SkillsSection />}
             {activeSection === "projects" && <ProjectsSection />}
@@ -319,7 +338,6 @@ export default function Home() {
           </motion.button>
         ))}
       </motion.div>
-
     </>
   );
 }

@@ -66,7 +66,7 @@ export function ProjectsSection() {
   const Icon = activeProject.icon;
 
   return (
-    <div className="section-shell section-projects min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-16 md:py-24">
+    <div className="section-shell section-projects h-screen overflow-y-auto overflow-x-hidden flex items-center justify-center px-4 sm:px-6 py-12 sm:py-16 md:py-24 pb-20 sm:pb-24 md:pb-32">
       <div className="max-w-6xl mx-auto w-full">
         {/* Section Header */}
         <motion.div

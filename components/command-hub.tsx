@@ -73,9 +73,9 @@ export function CommandHub({
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
+        className="fixed bottom-3 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-auto"
       >
-        <div className="glass rounded-2xl p-2 flex items-center gap-1">
+        <div className="glass rounded-xl sm:rounded-2xl p-1.5 sm:p-2 flex items-center gap-0.5 sm:gap-1 shadow-lg">
           {sections.map((section, index) => {
             const Icon = section.icon;
             const isActive = activeSection === section.id;
